@@ -65,7 +65,10 @@ contract SaveEtherAndERC20 {
     function EthersendOutSaving(address _receiver, uint256 _amount) external {
         require(msg.sender != address(0), "no zero address call");
         require(_amount > 0, "can't send zero value");
-        require(Ethersavings[msg.sender] >= _amount);
+        require(
+            Ethersavings[msg.sender] >= _amount,
+            "you do not have sufficient balance"
+        );
         Ethersavings[msg.sender] -= _amount;
 
         payable(_receiver).transfer(_amount);
